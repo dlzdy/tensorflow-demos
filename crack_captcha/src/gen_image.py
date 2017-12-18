@@ -4,7 +4,7 @@ from captcha.image import ImageCaptcha
 import numpy as np
 import matplotlib.pyplot as plt
 # from config import NUMBER, CHAR_SMALL, CHAR_BIG, MAX_CAPTCHA, CHAR_SET_LEN, FONT_SIZE
-import config
+from crack_captcha.src import config
 from PIL import Image
 import random
 

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from train_model import create_layer
+from crack_captcha_3d.src.train_model import create_layer
 import tensorflow as tf
-import config
+import crack_captcha_3d.src.config as config
 import numpy as np
-from gen_data import array_to_text, read_one_img
+from crack_captcha_3d.src.gen_data import array_to_text, read_one_img
 
 
 def crack_captcha(captcha_image):
@@ -16,9 +16,9 @@ def crack_captcha(captcha_image):
         saver.restore(sess, tf.train.latest_checkpoint('.'))
         predict = tf.argmax(tf.reshape(output, [-1, config.MAX_CAPTCHA, config.CHAR_SET_LEN]), 2)
 
-        print 'hello:',predict
+        print('hello:',predict)
         text_list = sess.run(predict, feed_dict={x_input: [captcha_image], keep_prob: 1})
-        print text_list
+        print(text_list)
 
         text = text_list[0].tolist()
         vector = np.zeros(config.MAX_CAPTCHA * config.CHAR_SET_LEN)

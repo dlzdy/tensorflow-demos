@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from gen_model import create_layer
+from crack_captcha.src.gen_model import create_layer
 import tensorflow as tf
-import config
+import crack_captcha.src.config as config
 import numpy as np
-from gen_image import convert2gray, gen_random_captcha_image, array_to_text
+from crack_captcha.src.gen_image import convert2gray, gen_random_captcha_image, array_to_text
 
 
 def crack_captcha(captcha_image):

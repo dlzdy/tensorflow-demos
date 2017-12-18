@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 import tensorflow as tf
-import config
+from crack_captcha_3d.src import config
 from PIL import Image
 import numpy as np
 import json
@@ -29,7 +29,7 @@ def move_img():
             hit = json.loads(p)
             read_img_and_move(hit, i)
 
-    print 'done'
+    print('done')
 
 
 def read_img_and_move(hit, index):
@@ -40,7 +40,7 @@ def read_img_and_move(hit, index):
 
     dst_file = '/'.join([config.VALIDATE_IMG_DST_PATH, str(index) + '_' + image_val + '.jpeg'])
 
-    print 'handle the file of %s' % dst_file
+    print('handle the file of %s' % dst_file)
     copyfile(full_file_name, dst_file)
 
 
@@ -51,7 +51,7 @@ def read_one_img(file_path):
     source = np.array(img)
 
     if source.shape != (53, 130):
-        print 'find one shape is not right %s' % file_path
+        print('find one shape is not right %s' % file_path)
         return None, None
 
     img_data = source.flatten() / 255.0
@@ -59,7 +59,7 @@ def read_one_img(file_path):
     file_name = re.search('_(.{4})[.]', file_name)
 
     if not file_name:
-        print 'since the result is None :%s' % file_path
+        print('since the result is None :%s' % file_path)
         return None, None
 
     text = file_name.group(1)
@@ -121,7 +121,7 @@ def read_train_folder():
     for img in glob(train_path):
         res.append(img)
 
-    print 'read once '
+    print('read once ')
     shuffle(res)
 
     global total_img
@@ -133,13 +133,13 @@ def read_test_folder():
 
     test_path = config.REAL_TEST_PATH + '/*.jpeg'
     if total_test_img:
-        print 'already read one,please check it '
+        print('already read one,please check it ')
         return
 
     for img in glob(test_path):
         total_test_img.append(img)
 
-    print 'read once with test folder'
+    print('read once with test folder')
 
 
 def gen_train_batch(batch_size):
@@ -200,8 +200,8 @@ def gen_test_batch(batch_size):
 if __name__ == '__main__':
     # print gen_train_batch(64)
     # print gen_train_batch(64)
-    print gen_test_batch(32)
+    print(gen_test_batch(32))
     # print gen_test_batch(32)
     # print gen_test_batch(32)
     # print current_index
-    print current_test_index
+    print(current_test_index)

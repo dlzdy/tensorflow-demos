@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 import tensorflow as tf
-from gen_data import text_to_array
-from config import MAX_CAPTCHA, CHAR_SET_LEN, IMAGE_HEIGHT, IMAGE_WIDTH, MAX_ACCURACY
-from gen_data import gen_train_batch, gen_test_batch
+from crack_captcha_3d.src.gen_data import text_to_array
+from crack_captcha_3d.src.config import MAX_CAPTCHA, CHAR_SET_LEN, IMAGE_HEIGHT, IMAGE_WIDTH, MAX_ACCURACY
+from crack_captcha_3d.src.gen_data import gen_train_batch, gen_test_batch
 
 x_input = tf.placeholder(tf.float32, [None, IMAGE_HEIGHT * IMAGE_WIDTH])  # use the gray
 y_input = tf.placeholder(tf.float32, [None, CHAR_SET_LEN * MAX_CAPTCHA])
@@ -81,13 +81,13 @@ def create_loss(layer, y_input):
 def create_accuracy(output, y_input):
     predict = tf.reshape(output, [-1, MAX_CAPTCHA, CHAR_SET_LEN])
 
-    print 'predict', predict
+    print('predict', predict)
     max_idx_p = tf.argmax(predict, 2)
 
-    print 'max_idx_p', max_idx_p
+    print('max_idx_p', max_idx_p)
     max_idx_l = tf.argmax(tf.reshape(y_input, [-1, MAX_CAPTCHA, CHAR_SET_LEN]), 2)
 
-    print 'max_idx_p', max_idx_l
+    print('max_idx_p', max_idx_l)
     correct_pred = tf.equal(max_idx_p, max_idx_l)
     accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
     return accuracy

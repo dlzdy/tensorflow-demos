@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import tensorflow as tf
 import numpy as np
-from gen_image import text_to_array
-from config import MAX_CAPTCHA, CHAR_SET_LEN, IMAGE_HEIGHT, IMAGE_WIDTH, MAX_ACCURACY
-from gen_image import gen_require_captcha_image
+from crack_captcha_rgb.src.gen_image import text_to_array
+from crack_captcha_rgb.src.config import MAX_CAPTCHA, CHAR_SET_LEN, IMAGE_HEIGHT, IMAGE_WIDTH, MAX_ACCURACY
+from crack_captcha_rgb.src.gen_image import gen_require_captcha_image
 
 x_input = tf.placeholder(tf.float32, [None, IMAGE_HEIGHT * IMAGE_WIDTH * 3])  # using the rgb image
 y_input = tf.placeholder(tf.float32, [None, CHAR_SET_LEN * MAX_CAPTCHA])
@@ -34,7 +34,7 @@ def gen_next_batch(batch_size=100):
     batch_x = np.zeros([batch_size, IMAGE_HEIGHT * IMAGE_WIDTH * 3])
     batch_y = np.zeros([batch_size, MAX_CAPTCHA * CHAR_SET_LEN])
 
-    for i in xrange(batch_size):
+    for i in range(batch_size):
         text, image = gen_require_captcha_image()
         batch_x[i, :] = image.flatten() / 255.0
         batch_y[i, :] = text_to_array(text)
